@@ -14,6 +14,7 @@ int main() {
     send_request(true, 64, 1); requests_sent++;
     send_request(true, 128, 1); requests_sent++;
     send_request(true, 192, 1); requests_sent++;
+    send_request(false, 64, 1); requests_sent++;
 
     while (requests_sent > 0) {
         ticks_sent++;

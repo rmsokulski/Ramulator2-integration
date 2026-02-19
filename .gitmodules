@@ -1,0 +1,3 @@
+[submodule "Shared/OrCS_Mestrado"]
+	path = Shared/OrCS_Mestrado
+	url = git@github.com:rmsokulski/OrCS_Mestrado.git

@@ -25,6 +25,11 @@ void send_tick() {
   ramulator2_memorysystem->tick();
 }
 
+void write_callback() {
+    printf("Write completed! - %f\n", get_memory_tCK());
+    printf("Never will be called!!\n");
+    requests_sent--;
+}
 void read_callback() {
     printf("Read completed! - %f\n", get_memory_tCK());
     requests_sent--;
@@ -38,6 +43,25 @@ void send_request(bool is_read_request, int64_t memory_address, int context_id) 
       printf("Callback received!");
       read_callback();
     });
+
+  if (enqueue_success) {
+    // What happens if the memory request is accepted by Ramulator 2.0
+    printf("Ramulator received the request!\n");
+  } else {
+    // What happens if the memory request is rejected by Ramulator 2.0 (e.g., request queue full)
+    printf("Ramulator requested the request!\n");
+  }
+}
+
+    if (!is_read_request) {
+      printf("Receiving write request...");
+    bool enqueue_success = ramulator2_frontend->receive_external_requests(1, memory_address, context_id, [](Ramulator::Request& req) {
+      // your write request callback 
+      printf("This will never be called for writes!!!\n");
+      write_callback();
+    });
+
+    write_callback(); // Manually calling
 
   if (enqueue_success) {
     // What happens if the memory request is accepted by Ramulator 2.0
